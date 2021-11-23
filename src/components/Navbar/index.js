@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   VertcLine,
   Nav,
@@ -10,13 +12,28 @@ import {
 } from "./NavbarElements";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const clickHandler = (e) => {
+    if (e) {
+      // navigate back
+      navigate(-1);
+      setIsOpen(false);
+    } else {
+      // open the menu
+      navigate("/menu");
+      setIsOpen(true);
+    }
+  };
+
   return (
     <>
       <Nav>
         <NavLink to="/">
           <img src="logo.png" alt="logo" />
         </NavLink>
-        <Bars />
+        <Bars onClick={() => clickHandler(isOpen)} />
         <NavMenu>
           <NavLink to="/" activeStyle>
             Home
